@@ -1,11 +1,1 @@
-/.env
-/.vscode
-<<<<<<< HEAD
 /data/*
-=======
-/config/*
-/data/*
-/logs/*
-/www/**
->>>>>>> cda3971f03c1777cc1b07f00cc15b4a507c519e6
-.DS_Store
