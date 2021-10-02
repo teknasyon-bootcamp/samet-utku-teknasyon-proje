@@ -1,1 +1,1 @@
-# proje-samet
+# News Project
