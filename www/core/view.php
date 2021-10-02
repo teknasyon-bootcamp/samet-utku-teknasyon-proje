@@ -19,4 +19,13 @@ class View
             throw new \Exception("View Error: $file not found");
         }
     }
+	public static function renderText($path,$params)
+    {  
+        $file = dirname(__DIR__) . "/app/views/$path";  
+        if (is_readable($file)) {
+            return implode(file( $file));
+        } else {
+            throw new \Exception("View Error: $file not found");
+        }
+    }
 }

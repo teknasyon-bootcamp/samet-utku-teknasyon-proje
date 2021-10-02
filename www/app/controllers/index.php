@@ -8,8 +8,13 @@ class index extends \Core\controller
 	public $params= [];
 	public function index()
     {  
-        View::render('index.php',$this->params);
+		$this->params["meta"]=["title"=>"News","description"=>"Description","robots"=>"nofollow,noindex"]; 
+		View::render('index.php',$this->params);
     }
+	public function templateLoad(){
+		
+		$test = View::renderText('templateload.php',$this->params);
+	}
 	public function dynamicroute()
     {  
 		$query = $this->params["query"];

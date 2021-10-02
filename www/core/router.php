@@ -64,10 +64,6 @@ class router{
 			$stringQuery = "";
 			$arrayQuery = [];
 			foreach($explode as $value){
-			if($value==":::"){
-				$stringQuery .= "/:::";
-				break;
-			}
 			if($value==""){
 				continue;
 			}

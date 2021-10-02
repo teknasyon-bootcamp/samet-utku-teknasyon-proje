@@ -1,6 +1,9 @@
 DirectoryIndex index.php index.html
 RewriteEngine On 
 RewriteRule ^Api/(.*)/$ Api/$1/public/index.php [L]
+
+RewriteRule ^lib/(.*)$ public/lib/$1 [L]
+
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^(.*)$ public/index.php?url=$1 [QSA,L]
