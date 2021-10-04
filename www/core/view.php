@@ -16,8 +16,13 @@ class View
         if (is_readable($file)) {
             require $file;
         } else {
-            throw new \Exception("View Error: $file not found");
-        }
+			$file = dirname(__DIR__) . "/app/views/404.php";  
+			if(is_readable($file)) {
+				require $file;
+			}else{
+			throw new \Exception("View Error: $file not found");
+			}
+		}
     }
 	public static function renderText($path,$params)
     {  

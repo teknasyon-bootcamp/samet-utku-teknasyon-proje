@@ -10,21 +10,15 @@ set_exception_handler('\Core\error::exceptionHandler');
  * Routing
 */
 $router = new \Core\router;
-$router->add("GET",["url"=>"/","controller"=>"index","action"=>"index"]);
-$router->add("GET",["url"=>"/templates","controller"=>"index","action"=>"templateLoad"]);
-$router->add("POST",["url"=>"/api","controller"=>"api","action"=>"index"]);
 
 
-/* Pages */
-$router->add("POST",["url"=>"/page/home","controller"=>"pages","action"=>"home"]);
-$router->add("POST",["url"=>"/page/news/","controller"=>"pages","action"=>"news","dynamic"=>1]);
-
-$router->add("POST",["url"=>"/page/signin","controller"=>"pages","action"=>"signin"]);
-$router->add("POST",["url"=>"/page/signup","controller"=>"pages","action"=>"signup"]);
-$router->add("POST",["url"=>"/page/categoriesdetail","controller"=>"pages","action"=>"signin"]);
+$router->add("GET",["url"=>"/","controller"=>"index","action"=>"index","dynamic"=>1]);
+$router->add("POST",["url"=>"/","controller"=>"index","action"=>"pageViewer","dynamic"=>1]);
 
 
-$router->add("POST",["url"=>"/api","controller"=>"api","action"=>"index"]);
+$router->add("POST",["url"=>"/haber","controller"=>"index","action"=>"newsViewer","dynamic"=>1,"callback"=>function(){ echo "Haberler: ".rand(100,10000); }]);
+
+
 
 
 /* 

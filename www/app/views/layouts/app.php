@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en" class="h-100">
   <head>
@@ -8,7 +7,7 @@
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors"> 
     <title><?= $params["meta"]["title"]; ?></title>
     <!-- Bootstrap core CSS -->
-	<link href="/lib/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+	<link href="http://localhost/lib/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
     <!-- Favicons -->  
     <style>
       .bd-placeholder-img {
@@ -72,6 +71,7 @@
 <div class="pageView">
 
 </div>
+
 </div>
 </main>
 
@@ -81,20 +81,17 @@
   </div>
 </footer>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
-<script src="/lib/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script src="http://localhost/lib/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 <script>
 // Page & API Viewer
 Page = {
 AppURL: "localhost",
 start:function(){
-/* Jarvis: Welcome Again */
-Page.callAPI("/page/home","post","",function(data){
-	document.getElementsByClassName("pageView")[0].innerHTML=data;
-	setTimeout(function(){
-		Page.callAPI("/page/news/bursa-haberleri","post","",function(data){ document.getElementsByClassName("PHPnews")[0].innerHTML=data; }); 
-	}, 1000);
-	});
-},
+/* Jarvis: Welcome Again /<?php echo implode("/",$params["query"]); ?> */
+Page.callAPI("/<?php $apideger = implode("/",$params["query"]); if($apideger!='/'){echo $apideger;} ?>","post","",function(data){
+	document.getElementsByClassName("pageView")[0].innerHTML=data; 
+});
+}, 
 callAPI:function(url,method,query,callback){
 Page.API(url,method,query,callback,function(jqXhr, textStatus, errorMessage){
 	document.getElementsByClassName("notification")[0].innerHTML='<div class="alert alert-warning alert-dismissible fade show" role="alert"> '+textStatus+" || "+errorMessage+' <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button> </div>';
@@ -110,7 +107,7 @@ $.ajax({
 				xhr.withCredentials = true;
 			},
 			success: function(response) {
-				setTimeout(callback(response), 0300);
+				setTimeout(function(){ callback(response); window.history.pushState(document.getElementsByClassName("pageView")[0].innerHTML, 'Title', url); }, 0300);
 			},
 			error: function(jqXhr, textStatus, errorMessage) {
 				if(errorcallback!=0){
@@ -121,6 +118,11 @@ $.ajax({
 }
 }
 Page.start();
+window.onpopstate = function(e){ 
+    if(e.state){ 
+	document.getElementsByClassName("pageView")[0].innerHTML = e.state;
+    }
+};
 </script>
 </body>
 </html>

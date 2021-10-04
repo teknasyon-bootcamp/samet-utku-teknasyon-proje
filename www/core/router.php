@@ -4,12 +4,17 @@ namespace Core;
 class router{ 
 	public $routes = [];
 	public $dynamicRoutes = [];
+	public $staticRoutes = [];
 	public $query = [];
 	
 	public function add($method, $parameters=[]){
+		// Route Info
 		if(!empty($parameters["dynamic"])){
-		$this->dynamicRoutes[$parameters["url"]] = 1; 
+			$this->dynamicRoutes[$method.$parameters["url"]] = $parameters["url"]; 
+		}else{
+			$this->staticRoutes[$method.$parameters["url"]] = $parameters["url"]; 
 		}
+		// Save Parameters
 		$this->routes[$method][$parameters["url"]] = $parameters; 
 	} 
 	public function getRoutes()
@@ -28,7 +33,7 @@ class router{
 	} 
 	public function Match($method,$url)
 	{
-		$this->query = $this->getqueries($url);
+		$this->query = $this->getqueries($method,$url);
 		if(!empty($this->routes[$method][$this->query[0]])){
 			$match = $this->routes[$method][$this->query[0]];
 			return $this->call($match);
@@ -57,12 +62,14 @@ class router{
 		throw new \Exception("Class Not Found ($namespace)", 404);
 		}
 	}
-	public function getqueries($url)
+	public function getqueries($method,$url)
 	{
 		if(stristr($url, '/') && strlen($url)>1){
 			$explode = explode("/",$url);
 			$stringQuery = "";
-			$arrayQuery = [];
+			$dynamicQuery = "";			
+			$arrayQuery = []; 
+			// Query List
 			foreach($explode as $value){
 			if($value==""){
 				continue;
@@ -70,11 +77,18 @@ class router{
 			$stringQuery .= "/$value";
 			$arrayQuery[] = $value;
 			}
-			// Dynamic Route Check  
-			foreach($this->dynamicRoutes as $key => $val){
-				 if(stristr($url, $key)) {
-					$stringQuery = $key;
-				 } 
+			// Check Dynamic Route  
+			foreach($this->dynamicRoutes as $key => $val){ 
+				 if(stristr($method.$url, $key)) { 
+					$dynamicQuery = $val;
+				 }
+			}			
+			// Check Static Route
+			
+			if($dynamicQuery!=""){
+			if(empty($this->staticRoutes[$method.$stringQuery])){
+				$stringQuery = $dynamicQuery;
+			}
 			}
 			return [$stringQuery,$arrayQuery];
 		}else{
