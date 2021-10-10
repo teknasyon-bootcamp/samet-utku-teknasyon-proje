@@ -12,13 +12,22 @@ class database  extends \PDO
 		return $this;
 	}
 	public function connect(
-		$db=[]
+		array $db=[]
 	) { 
 		$this->pdo = new \PDO("mysql:host=".$db['host'], $db['user'], $db['password'], $db['options']);
 		return $this;
 	}
-	public function return()
+    public function count($i=-1)
 	{
+		return count($this->data);
+	}
+	public function return($i=-1)
+	{
+        if($i!=-1){
+            if($this->data[$i]){
+                return $this->data[$i];
+            }
+        }
 		return $this->data;
 	}
 	public function beginTransaction()
@@ -41,6 +50,17 @@ class database  extends \PDO
 		$this->pdo->inTransaction();
 		return $this;
 	}
+    public function checkData()
+    {
+    
+    if(is_array($this->data) && count($this->data)>0){
+        $this->data=1;
+    }else{
+        $this->data=0;
+    }
+    
+		return $this;
+    }
 
 	public function all()
     {
@@ -51,21 +71,20 @@ class database  extends \PDO
         $this->data = $statement->fetchAll(self::FETCH_ASSOC);
         return $this;
     }
-	public function find(array $values): mixed
+	public function find(array $values)
     {
 		$table = $this->table;
-        $whereSerialize = $this->serialize($values,'where');
-        $query = "SELECT * FROM $table WHERE $whereSerialize";
+        $selectQuery = $this->serialize($values,'where');
+        $query = "SELECT * FROM $table WHERE ".$selectQuery;
         $statement = $this->pdo->prepare($query);
-        foreach ($values as $param => $value) {
-            $statement->bindValue(":$param", $value); 
+        foreach ($values as $key => $value) {
+            $statement->bindValue(":".$key, $value); 
         }
         $statement->execute(); 
         $result = $statement->fetchAll(self::FETCH_ASSOC);
 		$this->data = $result;
 		return $this;
     }
-
 	public function create(array $values) 
     {
 		$table = $this->table;
@@ -133,7 +152,7 @@ class database  extends \PDO
             }
             elseif ($type == 'set' || $type == 'where') 
             {
-                $result .= "$column=:$column"; 
+                $result .= "$column = :$column"; 
             }
             $propertiesCounter++; 
         }

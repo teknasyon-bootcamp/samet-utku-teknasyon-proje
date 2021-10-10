@@ -21,11 +21,11 @@
                 <label for="post_password2">Confirm Password</label>
               </div>			
 			        <div class="d-grid">
-                <button class="btn btn-primary btn-login text-uppercase fw-bold" onclick='Page.callAPI("/members/signup","post",
-                "post_name=\""+document.getElementById("post_name").value+"\"&"+
-                "post_mail=\""+document.getElementById("post_mail").value+"\"&"+
-                "post_password=\""+document.getElementById("post_password").value+"\"&"+
-                "post_password2=\""+document.getElementById("post_password2").value+"\"&"
+                <button class="btn btn-primary btn-login text-uppercase fw-bold" onclick='Page.callAPI("/api/members/signup","post",
+                "name="+document.getElementById("post_name").value+"&"+
+                "mail="+document.getElementById("post_mail").value+"&"+
+                "password="+document.getElementById("post_password").value+"&"+
+                "password_check="+document.getElementById("post_password2").value+"&"
                 ,0,0);'>Sign up</button>
               </div>
               <hr class="my-4">  

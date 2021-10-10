@@ -5,11 +5,11 @@ use \Core\view;
 use \Core\database;
 
 
-class signupController extends \Core\controller
+class signup_Controller extends \Core\controller
 {
 	public $params= [];
 	public function Signup()
     {  
-        return (new \Core\classes\membership\Signup)->check();
+        return (new \Core\classes\user\Signup)->check();
     }
 }

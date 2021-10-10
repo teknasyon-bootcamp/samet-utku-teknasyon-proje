@@ -39,5 +39,6 @@ class View
             \Core\classes\header::head("application/json",404,json_encode(["html"=>"404 Page Not Found"]));
             //throw new \Exception("View Error: $file not found");
         }
+        
     }
 }

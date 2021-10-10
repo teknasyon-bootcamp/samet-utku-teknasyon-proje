@@ -1,11 +1,17 @@
 <?php 
 require dirname(__DIR__)."/vendor/autoload.php";
+/** 
+ * Session
+ */
+\Core\classes\user\Session::start();
 /**
  * Error handling
  */
 error_reporting(E_ALL);
 set_error_handler('\Core\error::errorHandler');
 set_exception_handler('\Core\error::exceptionHandler');
+?>
+<?php 
 /**
  * Routing
 */
@@ -16,8 +22,14 @@ $router->add("POST",["url"=>"/","controller"=>"index","action"=>"pageViewer","dy
 /* 
 ,"controller"=>"index","action"=>"pageViewer"
 */
-/* Signup Signin */
-$router->add("POST",["url"=>"/members/signup","controller"=>"signupController","action"=>"Signup"]);
+
+/* Signup */
+$router->add("POST",["url"=>"/api/members/signup","controller"=>"signup_Controller","action"=>"Signup"]);
+$router->add("POST",["url"=>"/api/members/signin","controller"=>"signin_Controller","action"=>"Signin"]);
+
+/* Panel */
+$router->add("POST",["url"=>"/panel","controller"=>"panel_Controller","action"=>"index"]);
+
 //$router->add("POST",["url"=>"/haber","controller"=>"index","action"=>"newsViewer","dynamic"=>1,"callback"=>function(){ echo "Haberler: ".rand(100,10000); }]);
 /* CallBack */
 $router->run();

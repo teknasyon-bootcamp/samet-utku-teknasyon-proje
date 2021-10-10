@@ -6,19 +6,23 @@
             <h5 class="card-title text-center mb-5 fw-light fs-5">Sign In Panel</h5>
              
               <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-                <label for="floatingInput">Email address</label>
+                <input type="email" class="form-control" id="post_mail" placeholder="name@example.com">
+                <label for="post_mail">Email address</label>
               </div>
               <div class="form-floating mb-3">
-                <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-                <label for="floatingPassword">Password</label>
+                <input type="password" class="form-control" id="post_password" placeholder="Password">
+                <label for="post_password">Password</label>
               </div> 
               <div class="d-grid">
-                <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit">Sign
-                  in</button>
+                <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit" onclick='
+                Page.callAPI("/api/members/signin","post",
+                "mail="+document.getElementById("post_mail").value+"&"+
+                "password="+document.getElementById("post_password").value+"&"
+                ,0,0);'>Sign in</button>
               </div>
-              <hr class="my-4">  
-			  
+              <hr class="my-4">
+
+              <?php  print_r($_SESSION); ?>
           </div>
         </div>
       </div>
