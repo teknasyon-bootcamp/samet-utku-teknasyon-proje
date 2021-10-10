@@ -32,13 +32,10 @@ class router{
 		return $this->Match($method,$url);
 	} 
 	public function Match($method,$url)
-	{
+	{ 
 		$this->query = $this->getqueries($method,$url);
 		if(!empty($this->routes[$method][$this->query[0]])){
-			$match = $this->routes[$method][$this->query[0]];
-			return $this->call($match);
-		}else{
-			throw new \Exception('Page Not Found', 404);
+			return $this->call($this->routes[$method][$this->query[0]]);
 		}
 	}
 	public function call($match)

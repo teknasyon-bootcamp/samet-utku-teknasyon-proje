@@ -24,7 +24,7 @@ for($i=1; $i<rand(10,21); $i++){ ?>
 					 </div>
 				</div>	 
 <?php } ?>
-			 		</div></div>
+</div></div>
 <style>
 body{
     background: #eee;

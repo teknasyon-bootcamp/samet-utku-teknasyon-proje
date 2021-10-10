@@ -15,20 +15,17 @@ class index extends \Core\controller
     }
 	public function pageViewer()
     {  
+	
 		$this->params["meta"]=["title"=>"News","description"=>"Description","robots"=>"nofollow,noindex"];  
 		
-		$pageView = "./pages/".implode("/",$this->params["query"])."_page.php";
-		View::render($pageView,$this->params); 
+		$pageView = "./pages/".implode("/",$this->params["query"])."_page.php"; 
+		$this->params["html"] = View::returnHTML($pageView,$this->params); 
+		\Core\classes\header::head("application/json",200,json_encode($this->params));
     }
-	
-	public function newsViewer()
-    {  
-		
-    }
-	
+
 	public function templateLoad(){
 		
-		$test = View::renderText('templateload.php',$this->params);
+		$test = View::returnHTML('templateload.php',$this->params);
 	}
 	
 	public function dynamicroute()
