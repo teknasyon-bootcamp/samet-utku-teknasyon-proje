@@ -5,7 +5,9 @@ class router{
 	public $routes = [];
 	public $dynamicRoutes = [];
 	public $staticRoutes = [];
+	public $middleware = [];
 	public $query = [];
+	
 	
 	public function add($method, $parameters=[]){
 		// Route Info
@@ -14,8 +16,14 @@ class router{
 		}else{
 			$this->staticRoutes[$method.$parameters["url"]] = $parameters["url"]; 
 		}
+
+		if(isset($parameters["middleware"])){
+			$this->middleware[$method.$parameters["url"]] = $parameters["middleware"]; 
+		}
 		// Save Parameters
 		$this->routes[$method][$parameters["url"]] = $parameters; 
+
+		
 	} 
 	public function getRoutes()
 	{
@@ -35,7 +43,15 @@ class router{
 	{ 
 		$this->query = $this->getqueries($method,$url);
 		if(!empty($this->routes[$method][$this->query[0]])){
-			return $this->call($this->routes[$method][$this->query[0]]);
+			if(!empty($this->middleware[$method.$this->query[0]])){
+				if($this->middleware[$method.$this->query[0]]()){
+					return $this->call($this->routes[$method][$this->query[0]]);
+				}else{
+					return \Core\classes\header::head("application/json",401,json_encode(["login"=>0,"notice"=>"Unauthorized Client"]));
+				}
+			}else{
+				return $this->call($this->routes[$method][$this->query[0]]);
+			}
 		}
 	}
 	public function call($match)

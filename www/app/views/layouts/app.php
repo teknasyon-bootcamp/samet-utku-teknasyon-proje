@@ -88,7 +88,7 @@ Page.callAPI("/<?php $apideger = implode("/",$params["query"]); if($apideger!='/
 }, 
 callAPI:function(url,method,query,callback=0,redirect=1){
 Page.API(redirect,url,method,query,callback,function(jqXhr, textStatus, errorMessage){
-	document.getElementsByClassName("notification")[0].innerHTML='<div class="alert alert-warning alert-dismissible fade show" role="alert"> '+textStatus+" || "+errorMessage+' <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button> </div>';
+	alert(textStatus);
 });
 },
 API:function(redirect=1,url,method,query,callback=0,errorcallback=0){

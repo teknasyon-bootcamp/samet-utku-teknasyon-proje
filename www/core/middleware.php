@@ -1,11 +1,10 @@
 <?php
 namespace Core;
 
-class controller extends \Core\router{ 
-	public function __construct(){ 
+class middleware extends \Core\classes\session{ 
+	public function rule($rule){ 
+		return $this;
 	} 
-	public function __call($name, $args)
-    {
-    }
+
 
 }

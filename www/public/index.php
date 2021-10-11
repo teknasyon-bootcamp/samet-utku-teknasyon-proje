@@ -3,7 +3,7 @@ require dirname(__DIR__)."/vendor/autoload.php";
 /** 
  * Session
  */
-\Core\classes\user\Session::start();
+\Core\classes\session::start();
 /**
  * Error handling
  */
@@ -28,7 +28,9 @@ $router->add("POST",["url"=>"/api/members/signup","controller"=>"signup_Controll
 $router->add("POST",["url"=>"/api/members/signin","controller"=>"signin_Controller","action"=>"Signin"]);
 
 /* Panel */
-$router->add("POST",["url"=>"/panel","controller"=>"panel_Controller","action"=>"index"]);
+$router->add("POST",["url"=>"/panel","controller"=>"panel_Controller","action"=>"index","middleware"=>function(){ return (new \Core\middleware\auth)->rule(["permission"=>["membership"]]); } ]);
+
+
 
 //$router->add("POST",["url"=>"/haber","controller"=>"index","action"=>"newsViewer","dynamic"=>1,"callback"=>function(){ echo "Haberler: ".rand(100,10000); }]);
 /* CallBack */
