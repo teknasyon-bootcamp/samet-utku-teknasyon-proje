@@ -47,7 +47,7 @@ class router{
 				if($this->middleware[$method.$this->query[0]]()){
 					return $this->call($this->routes[$method][$this->query[0]]);
 				}else{
-					return \Core\classes\header::head("application/json",401,json_encode(["login"=>0,"notice"=>"Unauthorized Client"]));
+					return \Core\classes\header::head("application/json",401,json_encode(["login"=>0]));
 				}
 			}else{
 				return $this->call($this->routes[$method][$this->query[0]]);

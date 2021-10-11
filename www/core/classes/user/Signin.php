@@ -28,7 +28,8 @@ class Signin{
             "mail"=>$this->request["mail"],
         ])->return(0);
         if($check["mail"] == $this->request["mail"] && $check["password"]==md5($this->request["password"])){
-            return \Core\classes\header::head("application/json",200,json_encode(["login"=>0,"notice"=>"Giriş başarılı. Panel sayfasına yönlendiriliyorsunuz..","script"=>'Page.callAPI("/panel","post","");']));
+            \Core\classes\session::add("login",$check);
+            return \Core\classes\header::head("application/json",200,json_encode(["login"=>0,"notice"=>"Giriş başarılı. Panel sayfasına yönlendiriliyorsunuz..","script"=>'window.location.href = "/panel";']));
         }else{
             return \Core\classes\header::head("application/json",200,json_encode(["login"=>0,"notice"=>"Kullanıcı adınız veya şifreniz doğru değil..."]));
         }

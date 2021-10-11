@@ -5,5 +5,6 @@ class header{
         header("Content-Type: $type; charset=utf-8");
         http_response_code($statusCode);
         echo $data;
+        exit;
     }
 }

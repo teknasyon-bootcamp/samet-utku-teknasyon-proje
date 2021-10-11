@@ -20,8 +20,8 @@ class View
 			if(is_readable($file)) {
 				require $file;
 			}else{
-                \Core\classes\header::head("application/json",404,json_encode(["html"=>"404 Page Not Found"]));
-                //throw new \Exception("View Error: $file not found");
+                //\Core\classes\header::head("application/json",404,json_encode(["html"=>"404 Page Not Found"]));
+                throw new \Exception("View Error: $file not found");
 			}
 		}
     }

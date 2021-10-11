@@ -28,8 +28,11 @@ $router->add("POST",["url"=>"/api/members/signup","controller"=>"signup_Controll
 $router->add("POST",["url"=>"/api/members/signin","controller"=>"signin_Controller","action"=>"Signin"]);
 
 /* Panel */
-$router->add("POST",["url"=>"/panel","controller"=>"panel_Controller","action"=>"index","middleware"=>function(){ return (new \Core\middleware\auth)->rule(["permission"=>["membership"]]); } ]);
-
+$router->add("POST",["url"=>"/panel","controller"=>"panel_Controller","action"=>"index","middleware"=>function(){ return (new \Core\middleware\auth)->rule(["permissions"=>["membership"]]); } ]);
+$router->add("POST",["url"=>"/logout","controller"=>"panel_Controller","action"=>"logout","middleware"=>function(){ return (new \Core\middleware\auth)->rule(["permissions"=>["membership"]]); } ]);
+$router->add("POST",["url"=>"/panel/editor","controller"=>"panel_Controller","action"=>"editor","middleware"=>function(){ return (new \Core\middleware\auth)->rule(["permissions"=>["membership","editor"]]); } ]);
+$router->add("POST",["url"=>"/panel/moderator","controller"=>"panel_Controller","action"=>"moderator","middleware"=>function(){ return (new \Core\middleware\auth)->rule(["permissions"=>["membership","editor","moderator"]]); } ]);
+$router->add("POST",["url"=>"/panel/admin","controller"=>"panel_Controller","action"=>"admin","middleware"=>function(){ return (new \Core\middleware\auth)->rule(["permissions"=>["membership","editor","moderator","admin"]]); } ]);
 
 
 //$router->add("POST",["url"=>"/haber","controller"=>"index","action"=>"newsViewer","dynamic"=>1,"callback"=>function(){ echo "Haberler: ".rand(100,10000); }]);

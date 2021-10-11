@@ -50,12 +50,21 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href='javascript:Page.callAPI("/","post","");'>Home</a>
           </li>
+          <?php if((new \Core\middleware\auth)->rule(["permissions"=>["membership"]])){ ?>
+          <li class="nav-item">
+            <a class="nav-link" href='javascript:Page.callAPI("/panel","post","");'>Panel</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href='javascript:Page.callAPI("/logout","post","");'>Logout</a>
+          </li>
+          <?php }else{ ?> 
           <li class="nav-item">
             <a class="nav-link" href='javascript:Page.callAPI("/signin","post","");'>Sign In</a>
           </li>
-		  <li class="nav-item">
+		      <li class="nav-item">
             <a class="nav-link" href='javascript:Page.callAPI("/signup","post","");'>Sign Up</a>
           </li>
+          <?php } ?>
         </ul>
         <form class="d-flex">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -87,9 +96,7 @@ start:function(){
 Page.callAPI("/<?php $apideger = implode("/",$params["query"]); if($apideger!='/'){echo $apideger;} ?>","post","");
 }, 
 callAPI:function(url,method,query,callback=0,redirect=1){
-Page.API(redirect,url,method,query,callback,function(jqXhr, textStatus, errorMessage){
-	alert(textStatus);
-});
+Page.API(redirect,url,method,query,callback,0);
 },
 API:function(redirect=1,url,method,query,callback=0,errorcallback=0){
 $.ajax({
@@ -113,10 +120,16 @@ $.ajax({
         }
       }, 0300);
 			},
-			error: function(jqXhr, textStatus, errorMessage) {
+			error: function(jqXhr, response, errorMessage) {
+        console.log(jqXhr);
 				if(errorcallback!=0){
-					setTimeout(errorcallback(jqXhr, textStatus, errorMessage), 0300);
-				}
+					setTimeout(errorcallback(jqXhr, response, errorMessage), 0300);
+				}else{
+
+          document.getElementsByClassName("pageView")[0].innerHTML =  '<div class="card text-center"> <div class="card-header"> '+response+' </div> <div class="card-body"> <h5 class="card-title">'+errorMessage+'</h5> </div> </div>';
+         
+        }
+        
 			}
 });
 },

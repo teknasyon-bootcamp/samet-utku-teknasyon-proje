@@ -21,8 +21,6 @@
                 ,0,0);'>Sign in</button>
               </div>
               <hr class="my-4">
-
-              <?php  print_r($_SESSION); ?>
           </div>
         </div>
       </div>
