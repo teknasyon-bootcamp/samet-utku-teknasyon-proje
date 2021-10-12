@@ -127,7 +127,9 @@ $.ajax({
 				}else{
 
           document.getElementsByClassName("pageView")[0].innerHTML =  '<div class="card text-center"> <div class="card-header"> '+response+' </div> <div class="card-body"> <h5 class="card-title">'+errorMessage+'</h5> </div> </div>';
-         
+          if(redirect==1){
+          window.history.pushState(document.getElementsByClassName("pageView")[0].innerHTML, "Error", url); 
+          }
         }
         
 			}

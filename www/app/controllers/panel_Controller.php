@@ -24,12 +24,32 @@ class panel_Controller extends \Core\controller
     }
 	public function editor()
     {  
-        $this->params["meta"]=["title"=>"Editor","description"=>"Editor","robots"=>"nofollow,noindex"];  
+        $this->params["meta"]=["title"=>"News Editor","description"=>"Editor","robots"=>"nofollow,noindex"];  
 		$pageView = "./pages/panel/editor.php"; 
 		$this->params["html"] = View::returnHTML($pageView,$this->params); 
 		\Core\classes\header::head("application/json",200,json_encode($this->params));
 		
     }
+	public function moderator_admin()
+    {  
+        $this->params["meta"]=["title"=>"Editor","description"=>"Editor","robots"=>"nofollow,noindex"];  
+		$pageView = "./pages/panel/moderator_admin.php"; 
+		$this->params["html"] = View::returnHTML($pageView,$this->params); 
+		\Core\classes\header::head("application/json",200,json_encode($this->params));
+		
+    }
+	public function latest()
+    {  
+        $this->params["meta"]=["title"=>"Editor","description"=>"Editor","robots"=>"nofollow,noindex"];  
+		$pageView = "./pages/panel/latest.php"; 
+		$this->params["html"] = View::returnHTML($pageView,$this->params); 
+		\Core\classes\header::head("application/json",200,json_encode($this->params)); 
+    }
+	public function categoryAdd(){
+		echo "asd";
+		
+		exit;
+	}
 
 	
 }
