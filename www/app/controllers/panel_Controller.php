@@ -72,6 +72,95 @@ class panel_Controller extends \Core\controller
 			}
 		}
 	}
+	public function categoryDelete(){
+		$this->request = $_POST;
+
+		if(empty($this->request["id"]) || $this->request["id"]==""){
+			return \Core\classes\header::head("application/json",200,json_encode(["login"=>0,"notice"=>"Hata"]));
+		}
+
+		$check = (new \App\models\news_categories)->find([
+            "id"=>$this->request["id"],
+        ])->checkData()->return();
+
+        if($check){
+			$check = (new \App\models\news_categories)
+			->delete($this->request["id"])
+			->find([
+				"id"=>$this->request["id"]
+			])
+			->checkData()
+			->return();
+
+			if(empty($check)){
+				return \Core\classes\header::head("application/json",200,json_encode(["login"=>0,"notice"=>"Başarıyla silindi","script"=>"location.reload();"]));
+			}else{
+				return \Core\classes\header::head("application/json",200,json_encode(["login"=>0,"notice"=>"Hata"]));
+			}
+
+		}else{
+			return \Core\classes\header::head("application/json",200,json_encode(["login"=>0,"notice"=>"Hata"]));
+			
+		}
+	}
+	
+
+	public function newsAdd(){
+		$this->request = $_POST;
+
+		if(empty($this->request["title"]) || $this->request["title"]==""){
+			return \Core\classes\header::head("application/json",200,json_encode(["login"=>0,"notice"=>"Haber başlığı bulunamadı"]));
+		}
+
+		$check = (new \App\models\news)->find([
+            "title"=>$this->request["title"],
+        ])->checkData()->return();
+
+        if($check){
+			return \Core\classes\header::head("application/json",200,json_encode(["login"=>0,"notice"=>"Bu haber başlığı bulunmaktadır."]));
+		}else{
+			$check = (new \App\models\news)->create($this->request)->find([
+				"title"=>$this->request["title"]
+			])->checkData()->return();
+
+			if($check){
+				return \Core\classes\header::head("application/json",200,json_encode(["login"=>0,"notice"=>"Başarıyla haber eklendi","script"=>"location.reload();"]));
+			}else{
+				return \Core\classes\header::head("application/json",200,json_encode(["login"=>0,"notice"=>"Bu haber başlığı bulunmaktadır."]));
+			}
+		}
+	}
+	public function newsDelete(){
+		$this->request = $_POST;
+
+		if(empty($this->request["id"]) || $this->request["id"]==""){
+			return \Core\classes\header::head("application/json",200,json_encode(["login"=>0,"notice"=>"Hata"]));
+		}
+
+		$check = (new \App\models\news)->find([
+            "id"=>$this->request["id"],
+        ])->checkData()->return();
+
+        if($check){
+			$check = (new \App\models\news)
+			->delete($this->request["id"])
+			->find([
+				"id"=>$this->request["id"]
+			])
+			->checkData()
+			->return();
+
+			if(empty($check)){
+				return \Core\classes\header::head("application/json",200,json_encode(["login"=>0,"notice"=>"Başarıyla silindi","script"=>"location.reload();"]));
+			}else{
+				return \Core\classes\header::head("application/json",200,json_encode(["login"=>0,"notice"=>"Hata"]));
+			}
+
+		}else{
+			return \Core\classes\header::head("application/json",200,json_encode(["login"=>0,"notice"=>"Hata"]));
+			
+		}
+	}
 
 	
 }

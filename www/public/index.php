@@ -31,10 +31,16 @@ $router->add("POST",["url"=>"/api/members/signin","controller"=>"signin_Controll
 $router->add("POST",["url"=>"/panel","controller"=>"panel_Controller","action"=>"index","middleware"=>function(){ return (new \Core\middleware\auth)->rule(["permissions"=>["membership"]]); } ]);
 $router->add("POST",["url"=>"/logout","controller"=>"panel_Controller","action"=>"logout","middleware"=>function(){ return (new \Core\middleware\auth)->rule(["permissions"=>["membership"]]); } ]);
 
-
+/* News  Index */
 $router->add("POST",["url"=>"/panel/news","controller"=>"panel_Controller","action"=>"editor","middleware"=>function(){ return (new \Core\middleware\auth)->rule(["permissions"=>["editor"]]); } ]);
+/* Categories */
 $router->add("POST",["url"=>"/panel/news/categoryAdd","controller"=>"panel_Controller","action"=>"categoryAdd","middleware"=>function(){ return (new \Core\middleware\auth)->rule(["permissions"=>["editor"]]); } ]);
+$router->add("POST",["url"=>"/panel/news/categoryDelete","controller"=>"panel_Controller","action"=>"categoryDelete","middleware"=>function(){ return (new \Core\middleware\auth)->rule(["permissions"=>["editor"]]); } ]);
 
+
+
+$router->add("POST",["url"=>"/panel/news/newsAdd","controller"=>"panel_Controller","action"=>"newsAdd","middleware"=>function(){ return (new \Core\middleware\auth)->rule(["permissions"=>["editor"]]); } ]);
+$router->add("POST",["url"=>"/panel/news/newsDelete","controller"=>"panel_Controller","action"=>"newsDelete","middleware"=>function(){ return (new \Core\middleware\auth)->rule(["permissions"=>["editor"]]); } ]);
 
 
 

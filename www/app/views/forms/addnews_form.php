@@ -38,6 +38,12 @@
   </div>
   </div>
 
-  <button type="submit" class="btn btn-primary my-1">Gönder</button>
+  <button type="submit" class="btn btn-primary my-1" onclick='Page.callAPI("/panel/news/newsAdd","post",
+                "title="+document.getElementById("form_newstitle").value+"&"+
+                "imageURL="+document.getElementById("form_newsimage").value+"&"+
+                "description="+document.getElementById("form_newsdescription").value+"&"+
+                "content="+document.getElementById("form_newscontent").value+"&"+
+                "categoryID="+document.getElementById("form_newscategories").value+"&"
+                ,0,0);'>Gönder</button>
  
 </div></div>
