@@ -46,9 +46,31 @@ class panel_Controller extends \Core\controller
 		\Core\classes\header::head("application/json",200,json_encode($this->params)); 
     }
 	public function categoryAdd(){
-		echo "asd";
-		
-		exit;
+		$this->request = $_POST;
+
+		if(empty($this->request["categoryTitle"]) || $this->request["categoryTitle"]==""){
+			return \Core\classes\header::head("application/json",200,json_encode(["login"=>0,"notice"=>"Lütfen Kategori İsmini Giriniz"]));
+		}
+
+		$check = (new \App\models\news_categories)->find([
+            "title"=>$this->request["categoryTitle"],
+        ])->checkData()->return();
+
+        if($check){
+			return \Core\classes\header::head("application/json",200,json_encode(["login"=>0,"notice"=>"Bu kategori adı bulunmaktadır."]));
+		}else{
+			$check = (new \App\models\news_categories)->create([
+				"title"=>$this->request["categoryTitle"]
+			])->find([
+				"title"=>$this->request["categoryTitle"]
+			])->checkData()->return();
+
+			if($check){
+				return \Core\classes\header::head("application/json",200,json_encode(["login"=>0,"notice"=>"Başarıyla kategori eklendi","script"=>"location.reload();"]));
+			}else{
+				return \Core\classes\header::head("application/json",200,json_encode(["login"=>0,"notice"=>"Bu kategori adı bulunmaktadır."]));
+			}
+		}
 	}
 
 	
