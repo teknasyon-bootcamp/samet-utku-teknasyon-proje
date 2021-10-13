@@ -19,6 +19,8 @@ $router = new \Core\router;
 $router->add("GET",["url"=>"/","controller"=>"index","action"=>"index","dynamic"=>1]);
 // DynamicPage
 $router->add("POST",["url"=>"/","controller"=>"index","action"=>"pageViewer","dynamic"=>1]);
+$router->add("POST",["url"=>"/news","controller"=>"news_Controller","action"=>"index","dynamic"=>1]);
+
 /* 
 ,"controller"=>"index","action"=>"pageViewer"
 */
@@ -36,9 +38,7 @@ $router->add("POST",["url"=>"/panel/news","controller"=>"panel_Controller","acti
 /* Categories */
 $router->add("POST",["url"=>"/panel/news/categoryAdd","controller"=>"panel_Controller","action"=>"categoryAdd","middleware"=>function(){ return (new \Core\middleware\auth)->rule(["permissions"=>["editor"]]); } ]);
 $router->add("POST",["url"=>"/panel/news/categoryDelete","controller"=>"panel_Controller","action"=>"categoryDelete","middleware"=>function(){ return (new \Core\middleware\auth)->rule(["permissions"=>["editor"]]); } ]);
-
-
-
+/* News */
 $router->add("POST",["url"=>"/panel/news/newsAdd","controller"=>"panel_Controller","action"=>"newsAdd","middleware"=>function(){ return (new \Core\middleware\auth)->rule(["permissions"=>["editor"]]); } ]);
 $router->add("POST",["url"=>"/panel/news/newsDelete","controller"=>"panel_Controller","action"=>"newsDelete","middleware"=>function(){ return (new \Core\middleware\auth)->rule(["permissions"=>["editor"]]); } ]);
 
