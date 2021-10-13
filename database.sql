@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Anamakine: database:3306
--- Üretim Zamanı: 12 Eki 2021, 22:33:54
+-- Üretim Zamanı: 13 Eki 2021, 18:34:58
 -- Sunucu sürümü: 8.0.26
 -- PHP Sürümü: 7.4.20
 
@@ -24,6 +24,20 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Tablo için tablo yapısı `comments`
+--
+
+CREATE TABLE `comments` (
+  `id` int NOT NULL,
+  `newsID` int NOT NULL,
+  `name` varchar(150) NOT NULL,
+  `comments` text NOT NULL,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Tablo için tablo yapısı `news`
 --
 
@@ -37,13 +51,6 @@ CREATE TABLE `news` (
   `update_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
---
--- Tablo döküm verisi `news`
---
-
-INSERT INTO `news` (`id`, `title`, `imageURL`, `description`, `content`, `categoryID`, `update_at`) VALUES
-(1, 'dfgsdfsdf', 'hqweasd', 'acxzzxc', 'asdasd', 1, '2021-10-12 21:21:05');
-
 -- --------------------------------------------------------
 
 --
@@ -56,14 +63,6 @@ CREATE TABLE `news_categories` (
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
---
--- Tablo döküm verisi `news_categories`
---
-
-INSERT INTO `news_categories` (`id`, `title`, `updated_at`) VALUES
-(1, 'Dünya Haberleri', '2021-10-12 19:34:38'),
-(2, 'Türkiye Haberleri', '2021-10-12 19:34:52');
-
 -- --------------------------------------------------------
 
 --
@@ -75,13 +74,6 @@ CREATE TABLE `role` (
   `name` varchar(150) NOT NULL,
   `permissions` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Tablo döküm verisi `role`
---
-
-INSERT INTO `role` (`id`, `name`, `permissions`) VALUES
-(1, 'Member', '{\"membership\":1,\"editor\":1}');
 
 -- --------------------------------------------------------
 
@@ -98,22 +90,14 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Tablo döküm verisi `users`
---
-
-INSERT INTO `users` (`id`, `name`, `password`, `mail`, `roleID`) VALUES
-(9, 'asdasd', '123', 'qwe@gmail.com', 1),
-(10, 'asdasd', '123', 'test@gmail.com', 1),
-(11, 'sam', '123', 'sam@gmail.com', 1),
-(12, 'test', '123', 'test123@gmail.com', 1),
-(13, 'asd', '202cb962ac59075b964b07152d234b70', 'asdf@gmail.com', 1),
-(14, '', 'd41d8cd98f00b204e9800998ecf8427e', '', 1),
-(15, 'test2', '202cb962ac59075b964b07152d234b70', 'test2@gmail.com', 1),
-(16, 'kadir', '202cb962ac59075b964b07152d234b70', 'kadir@gmail.com', 1);
-
---
 -- Dökümü yapılmış tablolar için indeksler
 --
+
+--
+-- Tablo için indeksler `comments`
+--
+ALTER TABLE `comments`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Tablo için indeksler `news`
@@ -144,28 +128,34 @@ ALTER TABLE `users`
 --
 
 --
+-- Tablo için AUTO_INCREMENT değeri `comments`
+--
+ALTER TABLE `comments`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
 -- Tablo için AUTO_INCREMENT değeri `news`
 --
 ALTER TABLE `news`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `news_categories`
 --
 ALTER TABLE `news_categories`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `role`
 --
 ALTER TABLE `role`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

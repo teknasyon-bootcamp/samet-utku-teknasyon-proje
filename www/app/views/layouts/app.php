@@ -50,7 +50,7 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href='javascript:Page.callAPI("/","post","");'>Home</a>
           </li>
-          <?php if((new \Core\middleware\auth)->rule(["permissions"=>["membership"]])){ ?>
+          <?php if((new \Core\middleware\auth)->rule(["permissions"=>["user"]])){ ?>
           <li class="nav-item">
             <a class="nav-link" href='javascript:Page.callAPI("/panel","post","");'>Panel</a>
           </li>

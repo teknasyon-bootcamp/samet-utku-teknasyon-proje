@@ -2,14 +2,15 @@
 <div class="menu">
 
 </div>
-<div class="PHPnews"><h1 class="display-3">News: bursa-haberleri </h1> 
+<div class="PHPnews">
 <div class="row">
 
-
-	<?php
+<?php
     $categories = (new \App\models\news)->all()->return();
+	if(is_array($categories) && count($categories)>0){ 
     $i=0;
     foreach($categories as $val){
+	print_r($val);
     ++$i;
     ?>
 	<div class="col-sm-6">
@@ -23,9 +24,13 @@
   </div>
   </div>
     <?php 
-    }
-    ?>
+    }}else{
+		echo 'Henüz Haber Eklenmemiş...';
+	}
+
+?>
 
 
-</div></div>
+</div>
+</div>
 </div>

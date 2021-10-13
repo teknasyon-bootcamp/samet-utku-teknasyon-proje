@@ -16,8 +16,7 @@ class news_Controller extends \Core\controller
         ])->all()->return(0);
         
         /* 
-            🤟🤟🤟🤟🤟🤟🤟🤟🤟 SEO ++++ WEB 🤟🤟🤟🤟🤟🤟🤟🤟🤟
-            😍 Very Fast
+            🤟🤟🤟🤟🤟🤟🤟🤟🤟 SEO ++++ 🤟🤟🤟🤟🤟🤟🤟🤟🤟
         */
         $this->params["meta"]=["title"=>$news_data["title"],"description"=>$news_data["description"],"robots"=>"nofollow,noindex"];  
         $this->params["news_data"]=$news_data;  
