@@ -7,17 +7,13 @@ class Error
 		
         if (error_reporting() !== 0) {
 			$error = [$message, 0, $level, $file, $line];
-			
-            print_r($error);
+            // Logger
+            \Core\classes\logger::write("$message ($file,$line)",$level);
         }
     }
-    public static function exceptionHandler($exception="")
+    public static function exceptionHandler($exception)
     { 
-        $code = $exception->getCode();
-        if ($code != 404) {
-            $code = 500;
-        }
-        http_response_code($code);
+        http_response_code(500);
 		echo "<h1>Fatal error</h1>";
             echo "<p>Uncaught exception: '" . get_class($exception) . "'</p>";
             echo "<p>Message: '" . $exception->getMessage() . "'</p>";

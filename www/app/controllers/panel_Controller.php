@@ -161,6 +161,88 @@ class panel_Controller extends \Core\controller
 			
 		}
 	}
+	/* Moderator */
+	public function userUpdate(){
+		$this->request = $_POST;
+
+		if(empty($this->request["id"]) || $this->request["id"]==""){
+			return \Core\classes\header::head("application/json",200,json_encode(["login"=>0,"notice"=>"Hata"]));
+		}
+		$check = (new \App\models\users)->find([
+            "id"=>$this->request["id"],
+        ])->checkData()->return();
+		if(empty($check)){
+			return \Core\classes\header::head("application/json",200,json_encode(["login"=>0,"notice"=>"Bu kullanıcı bulunamadı....","script"=>"location.reload();"]));
+		}
+
+		// Yetki Kontrolü
+		$this->userData =  \Core\classes\session::get("login");
+		$checkRole = (new \App\models\users)
+		->find([
+		"id"=>$this->request["id"]
+		])
+		->return(0);
+		if($this->userData["roleID"]<=$checkRole["roleID"]){
+			return \Core\classes\header::head("application/json",200,json_encode(["login"=>0,"notice"=>"Yetkiniz Bulunmamaktadır.."]));
+		}
+		// Güncelleme İşlemi
+		$check = (new \App\models\users)
+			->update($this->request["id"],[
+				"name"=>$this->request["name"],
+				"mail"=>$this->request["mail"],
+				"roleID"=>$this->request["role"]
+				])
+			->find([
+				"id"=>$this->request["id"]
+			])
+			->checkData()
+			->return();
+
+			if($check){
+				return \Core\classes\header::head("application/json",200,json_encode(["login"=>0,"notice"=>"Başarıyla güncellendi","script"=>"location.reload();"]));
+			}else{
+				return \Core\classes\header::head("application/json",200,json_encode(["login"=>0,"notice"=>"Hata"]));
+			}
+	}
+	public function userDelete(){
+		$this->request = $_POST;
+		if(empty($this->request["id"]) || $this->request["id"]==""){ 
+			exit;
+			return \Core\classes\header::head("application/json",200,json_encode(["login"=>0,"notice"=>"Hata"]));
+		}
+		$check = (new \App\models\users)->find([
+            "id"=>$this->request["id"],
+        ])->checkData()->return();
+		if(empty($check)){
+			return \Core\classes\header::head("application/json",200,json_encode(["login"=>0,"notice"=>"Bu kullanıcı bulunamadı....","script"=>"location.reload();"]));
+		}
+		// Yetki Kontrolü
+		$this->userData =  \Core\classes\session::get("login");
+		$checkRole = (new \App\models\users)
+		->find([
+		"id"=>$this->request["id"]
+		])
+		->return(0);
+		if($this->userData["roleID"]<=$checkRole["roleID"]){
+			return \Core\classes\header::head("application/json",200,json_encode(["login"=>0,"notice"=>"Yetkiniz Bulunmamaktadır.."]));
+		}
+		// Silme İşlemi
+		$check = (new \App\models\users)
+			->delete($this->request["id"])
+			->find([
+				"id"=>$this->request["id"]
+			])
+			->checkData()
+			->return();
+
+			if(empty($check)){
+				return \Core\classes\header::head("application/json",200,json_encode(["login"=>0,"notice"=>"Kullanıcı Silindi","script"=>"location.reload();"]));
+			}else{
+				return \Core\classes\header::head("application/json",200,json_encode(["login"=>0,"notice"=>"Hata"]));
+			}
+	}
+
+
 
 	
 }

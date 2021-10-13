@@ -13,7 +13,9 @@ class news_Controller extends \Core\controller
         $news_data = (new \App\models\news)->find([
             "id"=>$newsid,
         ])->return(0);
-        
+        $this->params["newsComments"] = (new \App\models\comments)->find([
+            "newsID"=>$newsid
+        ])->return();
         $this->params["meta"]=["title"=>$news_data["title"],"description"=>$news_data["description"],"robots"=>"nofollow,noindex"];  
         $this->params["news_data"]=$news_data;  
 		$pageView = "./pages/news/view.php"; 
@@ -28,14 +30,13 @@ class news_Controller extends \Core\controller
         $categorydata = (new \App\models\news_categories)->find([
             "id"=>$categoryid,
         ])->return(0);
-        $newslist = (new \App\models\news)->find([
+        $this->params["newsList"] = (new \App\models\news)->find([
             "categoryID"=>$categoryid,
         ])->return();
-
         
         $this->params["meta"]=["title"=>$categorydata["title"]." - Haberleri Son Dakika ŞOK ŞOK","description"=>"Haberin Adresine Hoşgeldiniz... ".$categorydata["title"]." Haberlerini başka yerde aramayın.","robots"=>"nofollow,noindex"];  
         $this->params["categoryInfo"]=$categorydata; 
-        $this->params["newsList"]=$newslist;  
+
 		$pageView = "./pages/_page.php"; 
 		$this->params["html"] = View::returnHTML($pageView,$this->params); 
 		\Core\classes\header::head("application/json",200,json_encode($this->params));
