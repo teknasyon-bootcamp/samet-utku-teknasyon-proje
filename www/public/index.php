@@ -18,6 +18,7 @@ $router->add("GET",["url"=>"/","controller"=>"index","action"=>"index","dynamic"
 // DynamicPages
 $router->add("POST",["url"=>"/","controller"=>"index","action"=>"pageViewer","dynamic"=>1]);
 $router->add("POST",["url"=>"/news","controller"=>"news_Controller","action"=>"index","dynamic"=>1]);
+$router->add("POST",["url"=>"/category","controller"=>"news_Controller","action"=>"category","dynamic"=>1]);
 
 
 

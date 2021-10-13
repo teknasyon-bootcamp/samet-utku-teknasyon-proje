@@ -1,11 +1,11 @@
 <div class="container">
 <div class="card" style="margin:10px 0;">
 <div class="card-header">
-<?php echo $params["news_data"]["title"]; ?>
+<h4><?php echo $params["news_data"]["title"]; ?></h4>
   </div>
-  <img class="card-img-top" src="<?php echo $params["news_data"]["imageURL"]; ?>" alt="<?php echo $params["news_data"]["title"]; ?>">
   <div class="card-body"> 
-    <h1><?php echo $params["news_data"]["title"]; ?></h1>
+  <img src="<?php echo $params["news_data"]["imageURL"]; ?>" alt="<?php echo $params["news_data"]["title"]; ?>" style="max-height:200px;max-width:500px !important;">
+  
     <h2><?php echo $params["news_data"]["description"]; ?></h2>
     <p class="card-text"><?php echo $params["news_data"]["content"]; ?></p>
     <p><?php echo $params["news_data"]["update_at"]; ?></p>
@@ -18,11 +18,11 @@ Yorumlar
   <div class="card-body"> 
   <div class="form-group">
     <label for="form_adiniz">Adınız</label>
-    <input type="text" class="form-control" id="form_name">
+    <input type="text" class="form-control" id="form_name" placeholder="Adınız">
   </div>
   <div class="form-group">
     <label for="exampleFormControlTextarea1">Yorumunuz</label>
-    <textarea class="form-control" id="form_comment" rows="3"></textarea>
+    <textarea class="form-control" id="form_comment" rows="3" placeholder="Yorum Yazın"></textarea>
   </div>
   <div class="form-group">
   <button type="submit" class="btn btn-primary m-1" onclick='Page.callAPI("/api/comments/add","post", "name="+document.getElementById("form_name").value+"&"+
